@@ -22,7 +22,7 @@ def find_biggest_square(towers):
         indexes[index] = index
 
         # indexes list will contain towers taller than this tower
-        # check how many neighborougs are already in the list
+        # check how many neighbour towers are already in the list
         # so the biggestSquare after this tower is added to list is
         # neighborougs * height
         size = tower_sequence(indexes, index, height)
@@ -33,28 +33,27 @@ def find_biggest_square(towers):
 
 
 def tower_sequence(items, i, maxLength):
-    leftNeighbours = neighboroughs(items, i, -1, max(0, i-maxLength) )
+    leftNeighbours = neighbours(items, i, -1, max(0, i-maxLength) )
 
     if (leftNeighbours + 1 == maxLength):
         return maxLength
 
-    rightNeighbours = neighboroughs(items, i, 1, min(len(items)-1, i + (maxLength - leftNeighbours) ) )
+    rightNeighbours = neighbours(items, i, 1, min(len(items)-1, i + (maxLength - leftNeighbours) ) )
     return (leftNeighbours + rightNeighbours + 1)
 
 
-def neighboroughs(items, i, step, end):
+def neighbours(items, i, step, end):
     if i == end:
         return 0
 
-    i = i + step
-    count = 0
+    start = i + step
+    end = end + step
 
-    for index in xrange(i, end + step, step):
+    for index in xrange(start, end, step):
         if items[index] == None:
-            return count
-        count += 1
+            return abs(i-index)-1
 
-    return count
+    return abs(start - end)
 
 
 if __name__ == "__main__":
